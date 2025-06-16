@@ -1,0 +1,11 @@
+{
+    "name": "breadbot",
+    "dependencies": {
+        "discord.js": "^14.14.1",
+        "dotenv": "^16.5.0",
+        "fs": "^0.0.1-security"
+    },
+    "scripts": {
+        "bot": "node index.js"
+    }
+}
