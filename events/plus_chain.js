@@ -4,6 +4,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(msg, client) {
         if (!msg.guild) return;
+        if (msg.guild.id !== '798460929155137538') return;
 
         if (msg.author.id === P2 && msg.content.startsWith("Congratulations ") && msg.content.includes("+1 Shiny chain!")) {
             setTimeout(() => {

@@ -39,7 +39,7 @@ for (const file of eventFiles) {
 }
 
 // startup
-client.on('ready', () => {
+client.on('clientReady', () => {
     client.user.setPresence({
         activities: [{ name: `Bread`, type: ActivityType.Custom }],
         status: 'idle'

@@ -4,6 +4,8 @@ const { Seal } = require('../utils');
 module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
+        if (msg.guild.id !== '798460929155137538') return;
+
         const accountAgeMs = Date.now() - member.user.createdTimestamp;
         const eightDaysMs = 8 * 24 * 60 * 60 * 1000;
         const logChannel = member.guild.channels.cache.get("915991336577007647");

@@ -6,6 +6,7 @@ module.exports = {
     async execute(msg, args, client) {
 
         if (!msg.guild) return;
+        if (msg.guild.id !== '798460929155137538') return;
         if (!msg.member.permissions.has(PermissionFlagsBits.ManageGuild) && !msg.member.permissions.has(PermissionFlagsBits.Administrator) && msg.author.id != Seal) {
             return msg.channel.send('❌ You must have the `Manage Server` permission or `Administrator` to use this command.');
         }

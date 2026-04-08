@@ -45,7 +45,7 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setColor(embedColor)
             .setTitle('Vote for Access!')
-            .setURL('https://discords.com/servers/breadland/upvote')
+            .setURL('https://discords.com/servers/798460929155137538/upvote')
             .setDescription('(You can also [donate](https://discord.com/channels/798460929155137538/1306535193569660948/1306539229244821515) 50k pokecoins to any admin for permanent access.)\n\n-# Use </report:839848847752953873>,  <#1150059225129701416>, OR https://discord.com/channels/798460929155137538/1306535193569660948/1306539229244821515 to report SH steals.');
             //.setFooter({ text: '' })
 

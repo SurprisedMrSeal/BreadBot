@@ -2,6 +2,8 @@ module.exports = {
     name: 'messageCreate',
     async execute(msg, client) {
         if (!msg.guild) return;
+        if (msg.guild.id !== '798460929155137538') return;
+
         if (msg.author.id === "908384747393286174" && msg.embeds.length > 0) {
             const embed = msg.embeds[0];
 

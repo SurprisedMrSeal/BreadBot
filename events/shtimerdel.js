@@ -15,7 +15,7 @@ module.exports = {
             if (
                 message.author.id === Pname &&
                 message.embeds.length > 0 &&
-                message.embeds[0].description?.includes("Post Tag Timer") &&
+                (message.embeds[0].description?.includes("Post Tag Timer") || message.embeds[0].description?.includes("Sh Timer")) &&
                 !message.content.includes("Shiny Hunt Pings:")
             ) {
                 try { await message.delete(); } catch { }
