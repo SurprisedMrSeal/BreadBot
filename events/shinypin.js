@@ -22,9 +22,9 @@ module.exports = {
                                     .catch(error => console.error('Error pinning message:', error));
                             })
                             .catch(error => console.error('Error reacting with celebration emoji:', error));
-                    }, 100);
-                }, 100);
-            }, 100);
+                    }, 50);
+                }, 50);
+            }, 50);
         }
     }
 }; 

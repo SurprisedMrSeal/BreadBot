@@ -1,17 +1,36 @@
 const { EmbedBuilder } = require('discord.js');
 const { P2, Pname, P2a, P2a_P, embedColor, Seal } = require('../utils');
 
-const chan_arr = [
-    "798460929700266006", "812005484642304042", "1175112360504070154",
-    "1134437058866327573", "1134439206702284801", "1175112915242713138",
-    "787880836225040427"
-];
+// Configuration for different server setups
+const serverConfigs = {
+    '787880836225040424': { // basement
+        channels: [
+            "787880836225040427"
+        ],
+        timerDuration: 60000,
+        excludeChannels: []
+    },
+    '798460929155137538': { // bread
+        channels: [
+            "1493414718646255687", "1493415100529381376", "1493416810316562683", // sh
+            "1493419113228402819", "1493414983390990438", "1493419390086025246" // vote
+        ],
+        timerDuration: 60000,
+        excludeChannels: []
+    },
+    '854984157147299850': { // deox
+        channels: [
+            "1149815313827901520", "854984157838573579", "854984157838573583", "854984157838573584", // sh
+            "884466734050984016" // staff cmds (test)
+        ],
+        timerDuration: 120000,
+        excludeChannels: ['854986991720071178']
+    }
+};
 
 const Cd = new Map();
 const CHANNEL_COOLDOWN_MS = 15000;
-const shTimer = 60000;
 const activeTimers = new Map();
-
 const shinyHuntPingsSectionRegex = /(?:\*\*✨?\s*Shiny Hunt Pings:\*\*|Shiny hunt pings:)([\s\S]*?)(?=\*\*|Collection|Type|Quest|$)/i;
 
 module.exports = {
@@ -19,11 +38,18 @@ module.exports = {
     async execute(msg, client) {
         if (!msg.guild) return;
 
+        // Get config for this server
+        const config = serverConfigs[msg.guild.id];
+        if (!config) return;
+
+        // Check if channel is excluded
+        if (config.excludeChannels.includes(msg.channelId)) return;
+
         const match = msg.content.match(shinyHuntPingsSectionRegex);
         if (
             !match ||
             !(msg.author.id === Pname || msg.author.id === P2a || msg.author.id === P2a_P) ||
-            !chan_arr.includes(msg.channel.id)
+            !config.channels.includes(msg.channel.id)
         ) {
             return;
         }
@@ -43,6 +69,7 @@ module.exports = {
         Cd.set(msg.channel.id, now + CHANNEL_COOLDOWN_MS);
         setTimeout(() => Cd.delete(msg.channel.id), CHANNEL_COOLDOWN_MS);
 
+        const shTimer = config.timerDuration;
         const currentTime = Math.floor(Date.now() / 1000);
         const FFAin = currentTime + (shTimer / 1000);
 
@@ -67,11 +94,9 @@ module.exports = {
 
         if (!sentMsg) return;
 
-        // Create an object to track this channel's timer state
         const timerState = { cancelled: false };
         activeTimers.set(msg.id, timerState);
 
-        // Listen for spawn message from P2 to cancel timer
         const collector = msg.channel.createMessageCollector({
             filter: m =>
                 m.author.id === P2 &&
@@ -92,7 +117,7 @@ module.exports = {
         });
 
         setTimeout(async () => {
-            if (timerState.cancelled) return; // Skip end message + deletion if cancelled
+            if (timerState.cancelled) return;
 
             try {
                 await msg.reply("⌛ Shinyhunt Timer has ended. You can catch the pokémon now!");

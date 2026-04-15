@@ -8,7 +8,7 @@ module.exports = {
 
         const accountAgeMs = Date.now() - member.user.createdTimestamp;
         const eightDaysMs = 8 * 24 * 60 * 60 * 1000;
-        const logChannel = member.guild.channels.cache.get("915991336577007647");
+        const logChannel = member.guild.channels.cache.get("1493419674791186483");
 
         if (accountAgeMs < eightDaysMs) {
             try {
